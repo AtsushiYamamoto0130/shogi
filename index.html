@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>将棋</title>
+    <link rel="stylesheet" href="css/reset.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
+  <body>
+    <table id="table" class="table">
+      <tr>
+        <td id="cell00" data-cell="00"><span></span></td>
+        <td id="cell10" data-cell="10"><span></span></td>
+        <td id="cell20" data-cell="20"><span></span></td>
+        <td id="cell30" data-cell="30"><span></span></td>
+        <td id="cell40" data-cell="40"><span></span></td>
+        <td id="cell50" data-cell="50"><span></span></td>
+        <td id="cell60" data-cell="60"><span></span></td>
+        <td id="cell70" data-cell="70"><span></span></td>
+        <td id="cell80" data-cell="80"><span></span></td>
+      </tr>
+      <tr>
+        <td id="cell01" data-cell="01"><span></span></td>
+        <td id="cell11" data-cell="11"><span></span></td>
+        <td id="cell21" data-cell="21"><span></span></td>
+        <td id="cell31" data-cell="31"><span></span></td>
+        <td id="cell41" data-cell="41"><span></span></td>
+        <td id="cell51" data-cell="51"><span></span></td>
+        <td id="cell61" data-cell="61"><span></span></td>
+        <td id="cell71" data-cell="71"><span></span></td>
+        <td id="cell81" data-cell="81"><span></span></td>
+      </tr>
+
+      <tr>
+        <td id="cell02" data-cell="02"><span></span></td>
+        <td id="cell12" data-cell="12"><span></span></td>
+        <td id="cell22" data-cell="22"><span></span></td>
+        <td id="cell32" data-cell="32"><span></span></td>
+        <td id="cell42" data-cell="42"><span></span></td>
+        <td id="cell52" data-cell="52"><span></span></td>
+        <td id="cell62" data-cell="62"><span></span></td>
+        <td id="cell72" data-cell="72"><span></span></td>
+        <td id="cell82" data-cell="82"><span></span></td>
+      </tr>
+      <tr>
+        <td id="cell03" data-cell="03"><span></span></td>
+        <td id="cell13" data-cell="13"><span></span></td>
+        <td id="cell23" data-cell="23"><span></span></td>
+        <td id="cell33" data-cell="33"><span></span></td>
+        <td id="cell43" data-cell="43"><span></span></td>
+        <td id="cell53" data-cell="53"><span></span></td>
+        <td id="cell63" data-cell="63"><span></span></td>
+        <td id="cell73" data-cell="73"><span></span></td>
+        <td id="cell83" data-cell="83"><span></span></td>
+      </tr>
+      <tr>
+        <td id="cell04" data-cell="04"><span></span></td>
+        <td id="cell14" data-cell="14"><span></span></td>
+        <td id="cell24" data-cell="24"><span></span></td>
+        <td id="cell34" data-cell="34"><span></span></td>
+        <td id="cell44" data-cell="44"><span></span></td>
+        <td id="cell54" data-cell="54"><span></span></td>
+        <td id="cell64" data-cell="64"><span></span></td>
+        <td id="cell74" data-cell="74"><span></span></td>
+        <td id="cell84" data-cell="84"><span></span></td>
+      </tr>
+      <tr>
+        <td id="cell05" data-cell="05"><span></span></td>
+        <td id="cell15" data-cell="15"><span></span></td>
+        <td id="cell25" data-cell="25"><span></span></td>
+        <td id="cell35" data-cell="35"><span></span></td>
+        <td id="cell45" data-cell="45"><span></span></td>
+        <td id="cell55" data-cell="55"><span></span></td>
+        <td id="cell65" data-cell="65"><span></span></td>
+        <td id="cell75" data-cell="75"><span></span></td>
+        <td id="cell85" data-cell="85"><span></span></td>
+      </tr>
+      <tr>
+        <td id="cell06" data-cell="06"><span></span></td>
+        <td id="cell16" data-cell="16"><span></span></td>
+        <td id="cell26" data-cell="26"><span></span></td>
+        <td id="cell36" data-cell="36"><span></span></td>
+        <td id="cell46" data-cell="46"><span></span></td>
+        <td id="cell56" data-cell="56"><span></span></td>
+        <td id="cell66" data-cell="66"><span></span></td>
+        <td id="cell76" data-cell="76"><span></span></td>
+        <td id="cell86" data-cell="86"><span></span></td>
+      </tr>
+      <tr>
+        <td id="cell07" data-cell="07"><span></span></td>
+        <td id="cell17" data-cell="17"><span></span></td>
+        <td id="cell27" data-cell="27"><span></span></td>
+        <td id="cell37" data-cell="37"><span></span></td>
+        <td id="cell47" data-cell="47"><span></span></td>
+        <td id="cell57" data-cell="57"><span></span></td>
+        <td id="cell67" data-cell="67"><span></span></td>
+        <td id="cell77" data-cell="77"><span></span></td>
+        <td id="cell87" data-cell="87"><span></span></td>
+      </tr>
+      <tr>
+        <td id="cell08" data-cell="08"><span></span></td>
+        <td id="cell18" data-cell="18"><span></span></td>
+        <td id="cell28" data-cell="28"><span></span></td>
+        <td id="cell38" data-cell="38"><span></span></td>
+        <td id="cell48" data-cell="48"><span></span></td>
+        <td id="cell58" data-cell="58"><span></span></td>
+        <td id="cell68" data-cell="68"><span></span></td>
+        <td id="cell78" data-cell="78"><span></span></td>
+        <td id="cell88" data-cell="88"><span></span></td>
+      </tr>
+    </table>
+
+    <!-- jquery cdn 必ずjqueryが先 -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <!-- script.js-jsライブラリー -->
+    <script src="js/app.js"></script>
+  </body>
+</html>
