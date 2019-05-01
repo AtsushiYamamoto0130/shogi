@@ -66,12 +66,10 @@ $(document).on("click", "#table td", function() {
           //user2の負け
           if ((lost = frameFriend.hand)) {
             frameFriend.exist = 1;
-            update2(user2, frameFriend.x, frameFriend.y);
             flag = 0;
             //user1の負け
           } else if ((lost = frameEnemy.hand)) {
             frameEnemy.exist = 1;
-            update1(user1, frameEnemy.x, frameEnemy.y);
             flag = 0;
           }
         }
@@ -98,7 +96,6 @@ $(document).on("click", "#table td", function() {
       let tempy = frameFriend.y;
       frameFriend.x = x;
       frameFriend.y = y;
-      update1(user1, tempx, tempy);
       flag = 0;
       //2回目のクリックに駒がある場合
     } else {
@@ -120,11 +117,9 @@ $(document).on("click", "#table td", function() {
           if (frameFriend.hand == lost) {
             frameFriend.exist = 1;
             // user1が勝ち
-            update1(user1, frameFriend.x, frameFriend.y);
             flag = 0;
           } else if (frameEnemy.hand == lost) {
             frameEnemy.exist = 1;
-            update2(user2, frameEnemy.x, frameEnemy.y);
             flag = 0;
           }
         }
@@ -380,16 +375,12 @@ function seeHand(hand) {
   return jankenHand;
 }
 
-function update1(user1, tempx, tempy) {
+function update1(user1) {
   console.log("更新中");
   let user = user1;
-  $(`#cell${tempx}${tempy}`).html(`<span id="user_100"></span>`);
 
   for (let i = 0; i < 18; i++) {
     let userObj = user[i];
-    if (userObj.exist == 1) {
-      userObj.hand = 10;
-    }
     if (userObj.hand == 1) {
       // $(`#cell${user1Obj.x}${user1Obj.y}`).html("グー");
       $(`#cell${userObj.x}${userObj.y}`).html(
@@ -405,22 +396,16 @@ function update1(user1, tempx, tempy) {
       $(`#cell${userObj.x}${userObj.y}`).html(
         `<span id="user1_${i}">パー</span>`
       );
-    } else {
-      $(`#cell${userObj.x}${userObj.y}`).html(`<span id="user_100"></span>`);
     }
   }
 }
 
-function update2(user2, tempx, tempy) {
+function update2(user2) {
   console.log("更新中");
   let user = user2;
-  $(`#cell${tempx}${tempy}`).html(`<span id="user_100"></span>`);
 
   for (let i = 0; i < 18; i++) {
     let userObj = user[i];
-    if (userObj.exist == 1) {
-      userObj.hand = 10;
-    }
     if (userObj.hand == 1) {
       // $(`#cell${user1Obj.x}${user1Obj.y}`).html("グー");
       $(`#cell${userObj.x}${userObj.y}`).html(
@@ -436,8 +421,6 @@ function update2(user2, tempx, tempy) {
       $(`#cell${userObj.x}${userObj.y}`).html(
         `<span id="user2_${i}">パー</span>`
       );
-    } else {
-      $(`#cell${userObj.x}${userObj.y}`).html(`<span id="user_100"></span>`);
     }
   }
 }
