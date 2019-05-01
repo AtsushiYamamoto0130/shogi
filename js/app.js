@@ -9,8 +9,8 @@ window.onload = function() {
   user1 = createUser1();
   user2 = createUser2();
 
-  update1(user1, "", "");
-  update2(user2, "", "");
+  set1(user1, "", "");
+  set2(user2, "", "");
 };
 // クリック1
 $(document).on("click", "#table td", function() {
@@ -49,7 +49,9 @@ $(document).on("click", "#table td", function() {
       let tempy = frameFriend.y;
       frameFriend.x = x;
       frameFriend.y = y;
-      update2(user2, tempx, tempy);
+      deleteFrame(tempx, tempy);
+      upDate(frameFriend.x, frameFriend.y);
+
       flag = 0;
     } else {
       if (komaData == user2) {
@@ -96,6 +98,8 @@ $(document).on("click", "#table td", function() {
       let tempy = frameFriend.y;
       frameFriend.x = x;
       frameFriend.y = y;
+      deleteFrame(tempx, tempy);
+      upDate1(frameFriend.x, frameFriend.y, frameFriend.hand, placeData);
       flag = 0;
       //2回目のクリックに駒がある場合
     } else {
@@ -127,6 +131,87 @@ $(document).on("click", "#table td", function() {
     }
   }
 });
+
+function set1(user1) {
+  console.log("更新中");
+  let user = user1;
+
+  for (let i = 0; i < 18; i++) {
+    let userObj = user[i];
+    if (userObj.hand == 1) {
+      // $(`#cell${user1Obj.x}${user1Obj.y}`).html("グー");
+      $(`#cell${userObj.x}${userObj.y}`).html(
+        `<span id="user1_${i}">グー</span>`
+      );
+    } else if (userObj.hand == 2) {
+      // $(`#cell${user1Obj.x}${user1Obj.y}`).html("チョキ");
+      $(`#cell${userObj.x}${userObj.y}`).html(
+        `<span id="user1_${i}">チョキ</span>`
+      );
+    } else if (userObj.hand == 3) {
+      // $(`#cell${user1Obj.x}${user1Obj.y}`).html("パー");
+      $(`#cell${userObj.x}${userObj.y}`).html(
+        `<span id="user1_${i}">パー</span>`
+      );
+    }
+  }
+}
+
+function set2(user2) {
+  console.log("更新中");
+  let user = user2;
+
+  for (let i = 0; i < 18; i++) {
+    let userObj = user[i];
+    if (userObj.hand == 1) {
+      // $(`#cell${user1Obj.x}${user1Obj.y}`).html("グー");
+      $(`#cell${userObj.x}${userObj.y}`).html(
+        `<span id="user2_${i}">グー</span>`
+      );
+    } else if (userObj.hand == 2) {
+      // $(`#cell${user1Obj.x}${user1Obj.y}`).html("チョキ");
+      $(`#cell${userObj.x}${userObj.y}`).html(
+        `<span id="user2_${i}">チョキ</span>`
+      );
+    } else if (userObj.hand == 3) {
+      // $(`#cell${user1Obj.x}${user1Obj.y}`).html("パー");
+      $(`#cell${userObj.x}${userObj.y}`).html(
+        `<span id="user2_${i}">パー</span>`
+      );
+    }
+  }
+}
+
+// じゃんけんの判定:white(味方),black(相手)
+function judgeMent(white, black) {
+  let lost = 0;
+  console.log((white - black + 3) % 3);
+  if ((white - black + 3) % 3 == 2) {
+    console.log("whiteの勝利、blackの負け");
+    lost = black;
+  } else if (white - black + (3 % 3) == 1) {
+    console.log("blackの勝利、whiteの負け");
+    lost = white;
+  } else if ((white - black + 3) % 3 == 0) {
+    console.log("引き分け");
+    lost = 0;
+  }
+  return lost;
+}
+
+function upDate1(x, y, hand, placeData) {
+  console.log("placeData :" + placeData);
+  if (hand == 1) {
+    $(`#cell${x}${y}`).html(`<span id="user1_${placeData}">グー</span>`);
+  } else if (hand == 2) {
+    $(`#cell${x}${y}`).html(`<span id="user1_${placeData}">チョキ</span>`);
+  } else if (hand == 3) {
+    $(`#cell${x}${y}`).html(`<span id="user1_${placeData}">パー</span>`);
+  }
+}
+function deleteFrame(tempx, tempy) {
+  $(`#cell${tempx}${tempy}`).html(`<span id="user_100"></span>`);
+}
 
 // user2を作る
 function createUser2() {
@@ -373,71 +458,4 @@ function seeHand(hand) {
     jankenHand = "パー";
   }
   return jankenHand;
-}
-
-function update1(user1) {
-  console.log("更新中");
-  let user = user1;
-
-  for (let i = 0; i < 18; i++) {
-    let userObj = user[i];
-    if (userObj.hand == 1) {
-      // $(`#cell${user1Obj.x}${user1Obj.y}`).html("グー");
-      $(`#cell${userObj.x}${userObj.y}`).html(
-        `<span id="user1_${i}">グー</span>`
-      );
-    } else if (userObj.hand == 2) {
-      // $(`#cell${user1Obj.x}${user1Obj.y}`).html("チョキ");
-      $(`#cell${userObj.x}${userObj.y}`).html(
-        `<span id="user1_${i}">チョキ</span>`
-      );
-    } else if (userObj.hand == 3) {
-      // $(`#cell${user1Obj.x}${user1Obj.y}`).html("パー");
-      $(`#cell${userObj.x}${userObj.y}`).html(
-        `<span id="user1_${i}">パー</span>`
-      );
-    }
-  }
-}
-
-function update2(user2) {
-  console.log("更新中");
-  let user = user2;
-
-  for (let i = 0; i < 18; i++) {
-    let userObj = user[i];
-    if (userObj.hand == 1) {
-      // $(`#cell${user1Obj.x}${user1Obj.y}`).html("グー");
-      $(`#cell${userObj.x}${userObj.y}`).html(
-        `<span id="user2_${i}">グー</span>`
-      );
-    } else if (userObj.hand == 2) {
-      // $(`#cell${user1Obj.x}${user1Obj.y}`).html("チョキ");
-      $(`#cell${userObj.x}${userObj.y}`).html(
-        `<span id="user2_${i}">チョキ</span>`
-      );
-    } else if (userObj.hand == 3) {
-      // $(`#cell${user1Obj.x}${user1Obj.y}`).html("パー");
-      $(`#cell${userObj.x}${userObj.y}`).html(
-        `<span id="user2_${i}">パー</span>`
-      );
-    }
-  }
-}
-
-// じゃんけんの判定:white(味方),black(相手)
-function judgeMent(white, black) {
-  let lost = 0;
-  console.log((white - black + 3) % 3);
-  if ((white - black + 3) % 3 == 2) {
-    console.log("whiteの勝利、blackの負け");
-    lost = black;
-  } else if (white - black + (3 % 3) == 1) {
-    console.log("blackの勝利、whiteの負け");
-    lost = white;
-  } else if ((white - black + 3) % 3 == 0) {
-    console.log("引き分け");
-    lost = 0;
-  }
-  return lost;
 }
