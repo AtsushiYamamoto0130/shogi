@@ -6,8 +6,14 @@ let cellPlace = 0;
 let flag = 0;
 let komaData;
 let firstClickArray;
+let handArrayConvoy = new Array();
+let handArrayShuffled1 = new Array();
+let handArrayShuffled2 = new Array();
 
 window.onload = function() {
+  makeArray();
+  handArrayShuffled1 = shuffledArray(handArrayConvoy);
+  handArrayShuffled2 = shuffledArray(handArrayConvoy);
   user1 = createUser1();
   user2 = createUser2();
 
@@ -329,109 +335,109 @@ function createUser2() {
     {
       x: 0,
       y: 0,
-      hand: (hand = makeHand()),
+      hand: (hand = handArrayShuffled2[0]),
       exist: 0
     },
     {
       x: 1,
       y: 0,
-      hand: (hand = makeHand()),
+      hand: (hand = handArrayShuffled2[1]),
       exist: 0
     },
     {
       x: 2,
       y: 0,
-      hand: (hand = makeHand()),
+      hand: (hand = handArrayShuffled2[2]),
       exist: 0
     },
     {
       x: 3,
       y: 0,
-      hand: (hand = makeHand()),
+      hand: (hand = handArrayShuffled2[3]),
       exist: 0
     },
     {
       x: 4,
       y: 0,
-      hand: (hand = makeHand()),
+      hand: (hand = handArrayShuffled2[4]),
       exist: 0
     },
     {
       x: 5,
       y: 0,
-      hand: (hand = makeHand()),
+      hand: (hand = handArrayShuffled2[5]),
       exist: 0
     },
     {
       x: 6,
       y: 0,
-      hand: (hand = makeHand()),
+      hand: (hand = handArrayShuffled2[6]),
       exist: 0
     },
     {
       x: 7,
       y: 0,
-      hand: (hand = makeHand()),
+      hand: (hand = handArrayShuffled2[7]),
       exist: 0
     },
     {
       x: 8,
       y: 0,
-      hand: (hand = makeHand()),
+      hand: (hand = handArrayShuffled2[8]),
       exist: 0
     },
     {
       x: 0,
       y: 2,
-      hand: (hand = makeHand()),
+      hand: (hand = handArrayShuffled2[9]),
       exist: 0
     },
     {
       x: 1,
       y: 2,
-      hand: (hand = makeHand()),
+      hand: (hand = handArrayShuffled2[10]),
       exist: 0
     },
     {
       x: 2,
       y: 2,
-      hand: (hand = makeHand()),
+      hand: (hand = handArrayShuffled2[11]),
       exist: 0
     },
     {
       x: 3,
       y: 2,
-      hand: (hand = makeHand()),
+      hand: (hand = handArrayShuffled2[12]),
       exist: 0
     },
     {
       x: 4,
       y: 2,
-      hand: (hand = makeHand()),
+      hand: (hand = handArrayShuffled2[13]),
       exist: 0
     },
     {
       x: 5,
       y: 2,
-      hand: (hand = makeHand()),
+      hand: (hand = handArrayShuffled2[14]),
       exist: 0
     },
     {
       x: 6,
       y: 2,
-      hand: (hand = makeHand()),
+      hand: (hand = handArrayShuffled2[15]),
       exist: 0
     },
     {
       x: 7,
       y: 2,
-      hand: (hand = makeHand()),
+      hand: (hand = handArrayShuffled2[16]),
       exist: 0
     },
     {
       x: 8,
       y: 2,
-      hand: (hand = makeHand()),
+      hand: (hand = handArrayShuffled2[17]),
       exist: 0
     }
   ];
@@ -444,119 +450,115 @@ function createUser1() {
     {
       x: 0,
       y: 6,
-      hand: (hand = makeHand()),
+      hand: (hand = handArrayShuffled1[0]),
       exist: 0
     },
     {
       x: 1,
       y: 6,
-      hand: (hand = makeHand()),
+      hand: (hand = handArrayShuffled1[1]),
       exist: 0
     },
     {
       x: 2,
       y: 6,
-      hand: (hand = makeHand()),
+      hand: (hand = handArrayShuffled1[2]),
       exist: 0
     },
     {
       x: 3,
       y: 6,
-      hand: (hand = makeHand()),
+      hand: (hand = handArrayShuffled1[3]),
       exist: 0
     },
     {
       x: 4,
       y: 6,
-      hand: (hand = makeHand()),
+      hand: (hand = handArrayShuffled1[4]),
       exist: 0
     },
     {
       x: 5,
       y: 6,
-      hand: (hand = makeHand()),
+      hand: (hand = handArrayShuffled1[5]),
       exist: 0
     },
     {
       x: 6,
       y: 6,
-      hand: (hand = makeHand()),
+      hand: (hand = handArrayShuffled1[6]),
       exist: 0
     },
     {
       x: 7,
       y: 6,
-      hand: (hand = makeHand()),
+      hand: (hand = handArrayShuffled1[7]),
       exist: 0
     },
     {
       x: 8,
       y: 6,
-      hand: (hand = makeHand()),
+      hand: (hand = handArrayShuffled1[8]),
       exist: 0
     },
     {
       x: 0,
       y: 8,
-      hand: (hand = makeHand()),
+      hand: (hand = handArrayShuffled1[9]),
       exist: 0
     },
     {
       x: 1,
       y: 8,
-      hand: (hand = makeHand()),
+      hand: (hand = handArrayShuffled1[10]),
       exist: 0
     },
     {
       x: 2,
       y: 8,
-      hand: (hand = makeHand()),
+      hand: (hand = handArrayShuffled1[11]),
       exist: 0
     },
     {
       x: 3,
       y: 8,
-      hand: (hand = makeHand()),
+      hand: (hand = handArrayShuffled1[12]),
       exist: 0
     },
     {
       x: 4,
       y: 8,
-      hand: (hand = makeHand()),
+      hand: (hand = handArrayShuffled1[13]),
       exist: 0
     },
     {
       x: 5,
       y: 8,
-      hand: (hand = makeHand()),
+      hand: (hand = handArrayShuffled1[14]),
       exist: 0
     },
     {
       x: 6,
       y: 8,
-      hand: (hand = makeHand()),
+      hand: (hand = handArrayShuffled1[15]),
       exist: 0
     },
     {
       x: 7,
       y: 8,
-      hand: (hand = makeHand()),
+      hand: (hand = handArrayShuffled1[16]),
       exist: 0
     },
     {
       x: 8,
       y: 8,
-      hand: (hand = makeHand()),
+      hand: (hand = handArrayShuffled1[17]),
       exist: 0
     }
   ];
   return userArray1;
 }
 
-function makeHand() {
-  let hand = Math.floor(Math.random() * 3 + 1);
-  return hand;
-}
 // 数字からグー、チョキ、パーを判別
 function seeHand(hand) {
   let jankenHand = "";
@@ -568,4 +570,19 @@ function seeHand(hand) {
     jankenHand = "パー";
   }
   return jankenHand;
+}
+function shuffledArray(convoy) {
+  var team = convoy;
+  for (i = team.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var tmp = team[i];
+    team[i] = team[j];
+    team[j] = tmp;
+  }
+  console.log("team.length" + team.length);
+  return team;
+}
+
+function makeArray() {
+  handArrayConvoy = [1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3];
 }
