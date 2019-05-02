@@ -4,6 +4,8 @@ let user2 = new Array();
 let frameFriend = 0;
 let cellPlace = 0;
 let flag = 0;
+let komaData;
+let firstClickArray;
 
 window.onload = function() {
   user1 = createUser1();
@@ -15,23 +17,23 @@ window.onload = function() {
 // クリック1
 $(document).on("click", "#table td", function() {
   if (flag == 0) {
-    let komaData = $(this)
+    komaData = $(this)
       .find("span")
       .attr("id")
       .split("_");
-    let first = eval("(" + komaData[0] + ")");
+    firstClickArray = eval("(" + komaData[0] + ")");
     let second = komaData[1];
-    if (first == user2) {
+    if (firstClickArray == user2) {
       flag = 2;
       frameFriend = user2[second];
-    } else if (first == user1) {
+    } else if (firstClickArray == user1) {
       flag = 1;
       frameFriend = user1[second];
     }
     console.log("flag :" + flag);
     //クリック2 user2
   } else if (flag == 2) {
-    let placeData = $(this)
+    let komaData2 = $(this)
       .find("span")
       .attr("id")
       .split("_");
@@ -41,89 +43,147 @@ $(document).on("click", "#table td", function() {
     let place = komaPlace.split("");
     let x = place[0];
     let y = place[1];
-    let komaData = eval("(" + placeData[0] + ")");
-    let frameEnemy = komaData[placeData[1]];
-    if (placeData[1] == 100) {
+    let afterClickArray = eval("(" + komaData2[0] + ")");
+    let frameEnemy = afterClickArray[komaData2[1]];
+    console.log("frameEnemy :" + komaData2[1]);
+    console.log("afterClickArray" + afterClickArray);
+    if (komaData2[1] == 100) {
       alert("1マス進みます");
       let tempx = frameFriend.x;
       let tempy = frameFriend.y;
       frameFriend.x = x;
       frameFriend.y = y;
       deleteFrame(tempx, tempy);
-      upDate(frameFriend.x, frameFriend.y);
-
+      upDate2(
+        frameFriend.x,
+        frameFriend.y,
+        frameFriend.hand,
+        komaData[1],
+        frameFriend.exist
+      );
       flag = 0;
     } else {
-      if (komaData == user2) {
+      if (afterClickArray == user2) {
         alert("味方の駒です");
         return false;
-      } else if (komaData == user1) {
+      } else if (afterClickArray == user1) {
         alert("勝負します");
-        lost = judgeMent(frameFriend.hand, frameEnemy.hand);
+        lost = judgeMent(frameFriend, frameEnemy);
         if (lost == 0) {
           alert("引き分けです。");
           flag = 0;
         } else {
           console.log("lost :" + lost);
           //user2の負け
-          if ((lost = frameFriend.hand)) {
-            frameFriend.exist = 1;
+          if (lost == 1) {
+            upDate2(
+              frameFriend.x,
+              frameFriend.y,
+              frameFriend.hand,
+              frameFriend,
+              frameFriend.exist
+            );
+
             flag = 0;
             //user1の負け
-          } else if ((lost = frameEnemy.hand)) {
-            frameEnemy.exist = 1;
+          } else if (lost == 2) {
+            upDate1(
+              frameEnemy.x,
+              frameEnemy.y,
+              frameEnemy.hand,
+              frameEnemy,
+              frameEnemy.exist
+            );
+
             flag = 0;
           }
         }
       }
     }
-    // クリック２　user1
+    // クリック２user1
   } else if (flag == 1) {
-    let placeData = $(this)
+    let komaData2 = $(this)
       .find("span")
       .attr("id")
       .split("_");
+    console.log("komaData2 :" + komaData2);
     let komaPlace = $(this)
       .attr("id")
       .slice(4);
     let place = komaPlace.split("");
     let x = place[0];
     let y = place[1];
-    let komaData = eval("(" + placeData[0] + ")");
-    let frameEnemy = komaData[placeData[1]];
+    let afterClickArray = eval("(" + komaData2[0] + ")");
+    console.log("komaData :" + komaData);
+    let frameEnemy = afterClickArray[komaData2[1]];
+    console.log("frameEnemy :" + frameEnemy);
+
     //2回目のクリックした場所になにもいなかった場合
-    if (placeData[1] == 100) {
+    if (komaData2[1] == 100) {
       alert("1マス進みます");
       let tempx = frameFriend.x;
       let tempy = frameFriend.y;
       frameFriend.x = x;
       frameFriend.y = y;
       deleteFrame(tempx, tempy);
-      upDate1(frameFriend.x, frameFriend.y, frameFriend.hand, placeData);
+      console.log("駒データ" + komaData[1]);
+      upDate1(
+        frameFriend.x,
+        frameFriend.y,
+        frameFriend.hand,
+        komaData[1],
+        frameFriend.exist
+      );
       flag = 0;
       //2回目のクリックに駒がある場合
     } else {
       //２回目のクリックの場所に味方の駒がある場合
-      if (komaData == user1) {
+      if (afterClickArray == user1) {
         alert("味方の駒です");
         return false;
         //2回目のクリックの場所に敵の駒がある場合
-      } else if (komaData == user2) {
+      } else if (afterClickArray == user2) {
         alert("勝負します");
-        let lost = judgeMent(frameFriend.hand, frameEnemy.hand);
+        let lost = judgeMent(frameFriend, frameEnemy);
         //引き分けた場合
+        console.log("frameFriend.exist" + frameFriend.exist);
+        console.log("frameEnemy.exist" + frameEnemy.exist);
+        upDate1(
+          frameFriend.x,
+          frameFriend.y,
+          frameFriend.hand,
+          frameFriend.exist
+        );
+
         if (lost == 0) {
           alert("引き分けです。");
           flag = 0;
           //決着
         } else {
           //user1が負け
-          if (frameFriend.hand == lost) {
-            frameFriend.exist = 1;
+          if (lost == 1) {
+            console.log("frameFriend.exist>>" + frameFriend.exist);
+            console.log("frameEnemy.exist>>" + frameEnemy.exist);
+            console.log("frameFriend>>" + frameFriend);
+
+            upDate1(
+              frameFriend.x,
+              frameFriend.y,
+              frameFriend.hand,
+              frameFriend,
+              frameFriend.exist
+            );
             // user1が勝ち
             flag = 0;
-          } else if (frameEnemy.hand == lost) {
-            frameEnemy.exist = 1;
+          } else if (lost == 2) {
+            upDate1(
+              frameEnemy.x,
+              frameEnemy.y,
+              frameEnemy.hand,
+              frameEnemy,
+              frameEnemy.exist
+            );
+
             flag = 0;
           }
         }
@@ -182,16 +242,20 @@ function set2(user2) {
   }
 }
 
-// じゃんけんの判定:white(味方),black(相手)
-function judgeMent(white, black) {
+// じゃんけんの判定:white(味方),enemy(相手)
+function judgeMent(friend, enemy) {
+  let white = friend.hand;
+  let black = enemy.hand;
   let lost = 0;
   console.log((white - black + 3) % 3);
   if ((white - black + 3) % 3 == 2) {
     console.log("whiteの勝利、blackの負け");
-    lost = black;
-  } else if (white - black + (3 % 3) == 1) {
+    enemy.exist = 1;
+    lost = 2;
+  } else if ((white - black + 3) % 3 == 1) {
     console.log("blackの勝利、whiteの負け");
-    lost = white;
+    friend.exist = 1;
+    lost = 1;
   } else if ((white - black + 3) % 3 == 0) {
     console.log("引き分け");
     lost = 0;
@@ -199,16 +263,39 @@ function judgeMent(white, black) {
   return lost;
 }
 
-function upDate1(x, y, hand, placeData) {
-  console.log("placeData :" + placeData);
-  if (hand == 1) {
-    $(`#cell${x}${y}`).html(`<span id="user1_${placeData}">グー</span>`);
-  } else if (hand == 2) {
-    $(`#cell${x}${y}`).html(`<span id="user1_${placeData}">チョキ</span>`);
-  } else if (hand == 3) {
-    $(`#cell${x}${y}`).html(`<span id="user1_${placeData}">パー</span>`);
+function upDate1(x, y, hand, komaData, exist) {
+  console.log("ああああああ");
+  console.log("x :" + x);
+  console.log("y :" + y);
+  console.log("komaData :" + komaData);
+  console.log("exist :" + exist);
+  if (exist == 0) {
+    if (hand == 1) {
+      $(`#cell${x}${y}`).html(`<span id="user1_${komaData}">グー</span>`);
+    } else if (hand == 2) {
+      $(`#cell${x}${y}`).html(`<span id="user1_${komaData}">チョキ</span>`);
+    } else if (hand == 3) {
+      $(`#cell${x}${y}`).html(`<span id="user1_${komaData}">パー</span>`);
+    }
+  } else if (exist == 1) {
+    $(`#cell${x}${y}`).html(`<span id="user_100"></span>`);
   }
 }
+
+function upDate2(x, y, hand, komaData, exist) {
+  if (exist == 0) {
+    if (hand == 1) {
+      $(`#cell${x}${y}`).html(`<span id="user2_${komaData}">グー</span>`);
+    } else if (hand == 2) {
+      $(`#cell${x}${y}`).html(`<span id="user2_${komaData}">チョキ</span>`);
+    } else if (hand == 3) {
+      $(`#cell${x}${y}`).html(`<span id="user2_${komaData}">パー</span>`);
+    }
+  } else if (exist == 1) {
+    $(`#cell${x}${y}`).html(`<span id="user_100"></span>`);
+  }
+}
+
 function deleteFrame(tempx, tempy) {
   $(`#cell${tempx}${tempy}`).html(`<span id="user_100"></span>`);
 }
