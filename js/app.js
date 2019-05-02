@@ -83,7 +83,14 @@ $(document).on("click", "#table td", function() {
               frameFriend,
               frameFriend.exist
             );
-
+            upDate1(
+              frameFriend.x,
+              frameFriend.y,
+              frameEnemy.hand,
+              frameEnemy,
+              frameEnemy.exist
+            );
+            deleteFrame(frameEnemy.x, frameEnemy.y);
             flag = 0;
             //user1の負け
           } else if (lost == 2) {
@@ -94,7 +101,14 @@ $(document).on("click", "#table td", function() {
               frameEnemy,
               frameEnemy.exist
             );
-
+            upDate2(
+              frameEnemy.x,
+              frameEnemy.y,
+              frameFriend.hand,
+              frameFriend,
+              frameFriend.exist
+            );
+            deleteFrame(frameFriend.x, frameFriend.y);
             flag = 0;
           }
         }
@@ -148,13 +162,6 @@ $(document).on("click", "#table td", function() {
         //引き分けた場合
         console.log("frameFriend.exist" + frameFriend.exist);
         console.log("frameEnemy.exist" + frameEnemy.exist);
-        upDate1(
-          frameFriend.x,
-          frameFriend.y,
-          frameFriend.hand,
-          frameFriend.exist
-        );
-
         if (lost == 0) {
           alert("引き分けです。");
           flag = 0;
@@ -173,17 +180,33 @@ $(document).on("click", "#table td", function() {
               frameFriend,
               frameFriend.exist
             );
+            upDate2(
+              frameFriend.x,
+              frameFriend.y,
+              frameEnemy.hand,
+              frameEnemy,
+              frameEnemy.exist
+            );
+            deleteFrame(frameEnemy.x, frameEnemy.y);
+
             // user1が勝ち
             flag = 0;
           } else if (lost == 2) {
-            upDate1(
+            upDate2(
               frameEnemy.x,
               frameEnemy.y,
               frameEnemy.hand,
               frameEnemy,
               frameEnemy.exist
             );
-
+            upDate1(
+              frameEnemy.x,
+              frameEnemy.y,
+              frameFriend.hand,
+              frameFriend,
+              frameFriend.exist
+            );
+            deleteFrame(frameFriend.x, frameFriend.y);
             flag = 0;
           }
         }
