@@ -229,21 +229,43 @@ function set1(user1) {
 
   for (let i = 0; i < 18; i++) {
     let userObj = user[i];
-    if (userObj.hand == 1) {
-      // $(`#cell${user1Obj.x}${user1Obj.y}`).html("グー");
-      $(`#cell${userObj.x}${userObj.y}`).html(
-        `<span id="user1_${i}">グー</span>`
-      );
-    } else if (userObj.hand == 2) {
-      // $(`#cell${user1Obj.x}${user1Obj.y}`).html("チョキ");
-      $(`#cell${userObj.x}${userObj.y}`).html(
-        `<span id="user1_${i}">チョキ</span>`
-      );
-    } else if (userObj.hand == 3) {
-      // $(`#cell${user1Obj.x}${user1Obj.y}`).html("パー");
-      $(`#cell${userObj.x}${userObj.y}`).html(
-        `<span id="user1_${i}">パー</span>`
-      );
+    if (userObj.exist == 0) {
+      if (userObj.hand == 1) {
+        // $(`#cell${user1Obj.x}${user1Obj.y}`).html("グー");
+        $(`#cell${userObj.x}${userObj.y}`).html(
+          `<span id="user1_${i}">グー</span>`
+        );
+      } else if (userObj.hand == 2) {
+        // $(`#cell${user1Obj.x}${user1Obj.y}`).html("チョキ");
+        $(`#cell${userObj.x}${userObj.y}`).html(
+          `<span id="user1_${i}">チョキ</span>`
+        );
+      } else if (userObj.hand == 3) {
+        // $(`#cell${user1Obj.x}${user1Obj.y}`).html("パー");
+        $(`#cell${userObj.x}${userObj.y}`).html(
+          `<span id="user1_${i}">パー</span>`
+        );
+      }
+    } else if (userObj.exist == 2) {
+      if (userObj.hand == 1) {
+        // $(`#cell${user1Obj.x}${user1Obj.y}`).html("グー");
+        $(`#cell${userObj.x}${userObj.y}`).html(
+          `<span id="user2_${i}">グー</span>`
+        );
+        $(`#cell${userObj.x}${userObj.y}`).css(`color`, `red`);
+      } else if (userObj.hand == 2) {
+        // $(`#cell${user1Obj.x}${user1Obj.y}`).html("チョキ");
+        $(`#cell${userObj.x}${userObj.y}`).html(
+          `<span id="user2_${i}">チョキ</span>`
+        );
+        $(`#cell${userObj.x}${userObj.y}`).css(`color`, `red`);
+      } else if (userObj.hand == 3) {
+        // $(`#cell${user1Obj.x}${user1Obj.y}`).html("パー");
+        $(`#cell${userObj.x}${userObj.y}`).html(
+          `<span id="user2_${i}">パー</span>`
+        );
+        $(`#cell${userObj.x}${userObj.y}`).css(`color`, `red`);
+      }
     }
   }
 }
@@ -254,21 +276,43 @@ function set2(user2) {
 
   for (let i = 0; i < 18; i++) {
     let userObj = user[i];
-    if (userObj.hand == 1) {
-      // $(`#cell${user1Obj.x}${user1Obj.y}`).html("グー");
-      $(`#cell${userObj.x}${userObj.y}`).html(
-        `<span id="user2_${i}">グー</span>`
-      );
-    } else if (userObj.hand == 2) {
-      // $(`#cell${user1Obj.x}${user1Obj.y}`).html("チョキ");
-      $(`#cell${userObj.x}${userObj.y}`).html(
-        `<span id="user2_${i}">チョキ</span>`
-      );
-    } else if (userObj.hand == 3) {
-      // $(`#cell${user1Obj.x}${user1Obj.y}`).html("パー");
-      $(`#cell${userObj.x}${userObj.y}`).html(
-        `<span id="user2_${i}">パー</span>`
-      );
+    if (userObj.exist == 0) {
+      if (userObj.hand == 1) {
+        // $(`#cell${user1Obj.x}${user1Obj.y}`).html("グー");
+        $(`#cell${userObj.x}${userObj.y}`).html(
+          `<span id="user2_${i}">グー</span>`
+        );
+      } else if (userObj.hand == 2) {
+        // $(`#cell${user1Obj.x}${user1Obj.y}`).html("チョキ");
+        $(`#cell${userObj.x}${userObj.y}`).html(
+          `<span id="user2_${i}">チョキ</span>`
+        );
+      } else if (userObj.hand == 3) {
+        // $(`#cell${user1Obj.x}${user1Obj.y}`).html("パー");
+        $(`#cell${userObj.x}${userObj.y}`).html(
+          `<span id="user2_${i}">パー</span>`
+        );
+      }
+    } else if (userObj.exist == 2) {
+      if (userObj.hand == 1) {
+        // $(`#cell${user1Obj.x}${user1Obj.y}`).html("グー");
+        $(`#cell${userObj.x}${userObj.y}`).html(
+          `<span id="user2_${i}">グー</span>`
+        );
+        $(`#cell${userObj.x}${userObj.y}`).css(`color`, `red`);
+      } else if (userObj.hand == 2) {
+        // $(`#cell${user1Obj.x}${user1Obj.y}`).html("チョキ");
+        $(`#cell${userObj.x}${userObj.y}`).html(
+          `<span id="user2_${i}">チョキ</span>`
+        );
+        $(`#cell${userObj.x}${userObj.y}`).css(`color`, `red`);
+      } else if (userObj.hand == 3) {
+        // $(`#cell${user1Obj.x}${user1Obj.y}`).html("パー");
+        $(`#cell${userObj.x}${userObj.y}`).html(
+          `<span id="user2_${i}">パー</span>`
+        );
+        $(`#cell${userObj.x}${userObj.y}`).css(`color`, `red`);
+      }
     }
   }
 }
@@ -362,7 +406,7 @@ function createUser2() {
       x: 4,
       y: 0,
       hand: (hand = handArrayShuffled2[4]),
-      exist: 0
+      exist: 2
     },
     {
       x: 5,
@@ -531,7 +575,7 @@ function createUser1() {
       x: 4,
       y: 8,
       hand: (hand = handArrayShuffled1[13]),
-      exist: 0
+      exist: 2
     },
     {
       x: 5,
