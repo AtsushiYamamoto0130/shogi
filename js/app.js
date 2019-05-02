@@ -6,14 +6,16 @@ let cellPlace = 0;
 let flag = 0;
 let komaData;
 let firstClickArray;
-let handArrayConvoy = new Array();
+let handArrayConvoy1 = new Array();
+let handArrayConvoy2 = new Array();
 let handArrayShuffled1 = new Array();
 let handArrayShuffled2 = new Array();
 
 window.onload = function() {
-  makeArray();
-  handArrayShuffled1 = shuffledArray(handArrayConvoy);
-  handArrayShuffled2 = shuffledArray(handArrayConvoy);
+  handArrayConvoy1 = makeArray1();
+  handArrayConvoy2 = makeArray2();
+  handArrayShuffled1 = shuffledArray1(handArrayConvoy1);
+  handArrayShuffled2 = shuffledArray2(handArrayConvoy2);
   user1 = createUser1();
   user2 = createUser2();
 
@@ -571,18 +573,35 @@ function seeHand(hand) {
   }
   return jankenHand;
 }
-function shuffledArray(convoy) {
-  var team = convoy;
-  for (i = team.length - 1; i > 0; i--) {
+function shuffledArray1(convoy) {
+  var team1 = convoy;
+  for (i = team1.length - 1; i > 0; i--) {
     var j = Math.floor(Math.random() * (i + 1));
-    var tmp = team[i];
-    team[i] = team[j];
-    team[j] = tmp;
+    var tmp = team1[i];
+    team1[i] = team1[j];
+    team1[j] = tmp;
   }
-  console.log("team.length" + team.length);
-  return team;
+  console.log("team1.length" + team1.length);
+  return team1;
 }
 
-function makeArray() {
-  handArrayConvoy = [1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3];
+function shuffledArray2(convoy) {
+  var team2 = convoy;
+  for (k = team2.length - 1; k > 0; k--) {
+    var l = Math.floor(Math.random() * (k + 1));
+    var tmp = team2[k];
+    team2[k] = team2[l];
+    team2[l] = tmp;
+  }
+  console.log("team2.length" + team2.length);
+  return team2;
+}
+
+function makeArray1() {
+  handArrayConvoy1 = [1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3];
+  return handArrayConvoy1;
+}
+function makeArray2() {
+  handArrayConvoy2 = [1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3];
+  return handArrayConvoy2;
 }
