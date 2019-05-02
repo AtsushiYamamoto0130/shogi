@@ -95,7 +95,7 @@ $(document).on("click", "#table td", function() {
               frameFriend.x,
               frameFriend.y,
               frameEnemy.hand,
-              frameEnemy,
+              komaData2[1],
               frameEnemy.exist
             );
             deleteFrame(frameEnemy.x, frameEnemy.y);
@@ -113,7 +113,7 @@ $(document).on("click", "#table td", function() {
               frameEnemy.x,
               frameEnemy.y,
               frameFriend.hand,
-              frameFriend,
+              komaData[1],
               frameFriend.exist
             );
             deleteFrame(frameFriend.x, frameFriend.y);
@@ -192,10 +192,13 @@ $(document).on("click", "#table td", function() {
               frameFriend.x,
               frameFriend.y,
               frameEnemy.hand,
-              frameEnemy,
+              komaData2[1],
               frameEnemy.exist
             );
+
             deleteFrame(frameEnemy.x, frameEnemy.y);
+            frameEnemy.x = frameFriend.x;
+            frameEnemy.y = frameFriend.y;
 
             // user1が勝ち
             flag = 0;
@@ -211,10 +214,14 @@ $(document).on("click", "#table td", function() {
               frameEnemy.x,
               frameEnemy.y,
               frameFriend.hand,
-              frameFriend,
+              komaData[1],
               frameFriend.exist
             );
+
             deleteFrame(frameFriend.x, frameFriend.y);
+            frameFriend.x = frameEnemy.x;
+            frameFriend.y = frameEnemy.y;
+
             flag = 0;
           }
         }
@@ -328,6 +335,7 @@ function upDate2(x, y, hand, komaData, exist) {
 }
 
 function deleteFrame(tempx, tempy) {
+  console.log("デリート" + tempx + tempy);
   $(`#cell${tempx}${tempy}`).html(`<span id="user_100"></span>`);
 }
 
