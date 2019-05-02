@@ -79,6 +79,22 @@ $(document).on("click", "#table td", function() {
         lost = judgeMent(frameFriend, frameEnemy);
         if (lost == 0) {
           alert("引き分けです。");
+          frameFriend.exist = 1;
+          frameEnemy.exist = 1;
+          upDate2(
+            frameFriend.x,
+            frameFriend.y,
+            frameFriend.hand,
+            komaData[1],
+            frameFriend.exist
+          );
+          upDate1(
+            frameEnemy.x,
+            frameEnemy.y,
+            frameEnemy.hand,
+            komaData2[1],
+            frameEnemy.exist
+          );
           flag = 0;
         } else {
           console.log("lost :" + lost);
@@ -172,6 +188,22 @@ $(document).on("click", "#table td", function() {
         console.log("frameEnemy.exist" + frameEnemy.exist);
         if (lost == 0) {
           alert("引き分けです。");
+          frameFriend.exist = 1;
+          frameEnemy.exist = 1;
+          upDate1(
+            frameFriend.x,
+            frameFriend.y,
+            frameFriend.hand,
+            komaData[1],
+            frameFriend.exist
+          );
+          upDate2(
+            frameEnemy.x,
+            frameEnemy.y,
+            frameEnemy.hand,
+            komaData2[1],
+            frameEnemy.exist
+          );
           flag = 0;
           //決着
         } else {
