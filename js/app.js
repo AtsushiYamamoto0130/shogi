@@ -56,7 +56,7 @@ $(document).on("click", "#table td", function() {
     console.log("frameEnemy :" + komaData2[1]);
     console.log("afterClickArray" + afterClickArray);
     if (komaData2[1] == 100) {
-      alert("1マス進みます");
+      alert("マスを進みます");
       let tempx = frameFriend.x;
       let tempy = frameFriend.y;
       frameFriend.x = x;
@@ -169,7 +169,7 @@ $(document).on("click", "#table td", function() {
 
     //2回目のクリックした場所になにもいなかった場合
     if (komaData2[1] == 100) {
-      alert("1マス進みます");
+      alert("マスを進みます");
       let tempx = frameFriend.x;
       let tempy = frameFriend.y;
       frameFriend.x = x;
@@ -322,6 +322,26 @@ function set1(user1) {
         );
         $(`#cell${userObj.x}${userObj.y}`).css("color", "red");
       }
+    } else if (userObj.exist == 3) {
+      if (userObj.hand == 1) {
+        // $(`#cell${user1Obj.x}${user1Obj.y}`).html("グー");
+        $(`#cell${userObj.x}${userObj.y}`).html(
+          `<span id="user1_${i}"><img src="./img/knightFriendGu.png"/></span>`
+        );
+        $(`#cell${userObj.x}${userObj.y}`).css("color", "red");
+      } else if (userObj.hand == 2) {
+        // $(`#cell${user1Obj.x}${user1Obj.y}`).html("チョキ");
+        $(`#cell${userObj.x}${userObj.y}`).html(
+          `<span id="user1_${i}"><img src="./img/knightFriendChoki.png"/></span>`
+        );
+        $(`#cell${userObj.x}${userObj.y}`).css("color", "red");
+      } else if (userObj.hand == 3) {
+        // $(`#cell${user1Obj.x}${user1Obj.y}`).html("パー");
+        $(`#cell${userObj.x}${userObj.y}`).html(
+          `<span id="user1_${i}"><img src="./img/knightFriendPa.png"/></span>`
+        );
+        $(`#cell${userObj.x}${userObj.y}`).css("color", "red");
+      }
     }
   }
 }
@@ -366,6 +386,26 @@ function set2(user2) {
         // $(`#cell${user1Obj.x}${user1Obj.y}`).html("パー");
         $(`#cell${userObj.x}${userObj.y}`).html(
           `<span id="user2_${i}"><img src="./img/kingEnemyPa.png"/></span>`
+        );
+        $(`#cell${userObj.x}${userObj.y}`).css("color", "red");
+      }
+    } else if (userObj.exist == 3) {
+      if (userObj.hand == 1) {
+        // $(`#cell${user1Obj.x}${user1Obj.y}`).html("グー");
+        $(`#cell${userObj.x}${userObj.y}`).html(
+          `<span id="user2_${i}"><img src="./img/knightEnemyGu.png"/></span>`
+        );
+        $(`#cell${userObj.x}${userObj.y}`).css("color", "red");
+      } else if (userObj.hand == 2) {
+        // $(`#cell${user1Obj.x}${user1Obj.y}`).html("チョキ");
+        $(`#cell${userObj.x}${userObj.y}`).html(
+          `<span id="user2_${i}"><img src="./img/knightEnemyChoki.png"/></span>`
+        );
+        $(`#cell${userObj.x}${userObj.y}`).css("color", "red");
+      } else if (userObj.hand == 3) {
+        // $(`#cell${user1Obj.x}${user1Obj.y}`).html("パー");
+        $(`#cell${userObj.x}${userObj.y}`).html(
+          `<span id="user2_${i}"><img src="./img/knightEnemyPa.png"/></span>`
         );
         $(`#cell${userObj.x}${userObj.y}`).css("color", "red");
       }
@@ -433,6 +473,23 @@ function upDate1(x, y, hand, komaData, exist) {
       );
       $(`#cell${x}${y}`).css("color", "red");
     }
+  } else if (exist == 3) {
+    if (hand == 1) {
+      $(`#cell${x}${y}`).html(
+        `<span id="user1_${komaData}"><img src="./img/knightFriendGu.png"/></span>`
+      );
+      $(`#cell${x}${y}`).css("color", "red");
+    } else if (hand == 2) {
+      $(`#cell${x}${y}`).html(
+        `<span id="user1_${komaData}"><img src="./img/knightFriendChoki.png"/></span>`
+      );
+      $(`#cell${x}${y}`).css("color", "red");
+    } else if (hand == 3) {
+      $(`#cell${x}${y}`).html(
+        `<span id="user1_${komaData}"><img src="./img/knightFriendPa.png"/></span>`
+      );
+      $(`#cell${x}${y}`).css("color", "red");
+    }
   }
 }
 
@@ -470,6 +527,23 @@ function upDate2(x, y, hand, komaData, exist) {
       );
       $(`#cell${x}${y}`).css("color", "red");
     }
+  } else if (exist == 3) {
+    if (hand == 1) {
+      $(`#cell${x}${y}`).html(
+        `<span id="user2_${komaData}"><img src="./img/knightEnemyGu.png"/></span>`
+      );
+      $(`#cell${x}${y}`).css("color", "red");
+    } else if (hand == 2) {
+      $(`#cell${x}${y}`).html(
+        `<span id="user2_${komaData}"><img src="./img/knightEnemyChoki.png"/></span>`
+      );
+      $(`#cell${x}${y}`).css("color", "red");
+    } else if (hand == 3) {
+      $(`#cell${x}${y}`).html(
+        `<span id="user2_${komaData}"><img src="./img/knightEnemyPa.png"/></span>`
+      );
+      $(`#cell${x}${y}`).css("color", "red");
+    }
   }
 }
 
@@ -492,7 +566,7 @@ function createUser2() {
       x: 1,
       y: 0,
       hand: (hand = handArrayShuffled2[1]),
-      exist: 0
+      exist: 3
     },
     {
       x: 2,
@@ -528,7 +602,7 @@ function createUser2() {
       x: 7,
       y: 0,
       hand: (hand = handArrayShuffled2[7]),
-      exist: 0
+      exist: 3
     },
     {
       x: 8,
@@ -661,7 +735,7 @@ function createUser1() {
       x: 1,
       y: 8,
       hand: (hand = handArrayShuffled1[10]),
-      exist: 0
+      exist: 3
     },
     {
       x: 2,
@@ -697,7 +771,7 @@ function createUser1() {
       x: 7,
       y: 8,
       hand: (hand = handArrayShuffled1[16]),
-      exist: 0
+      exist: 3
     },
     {
       x: 8,
