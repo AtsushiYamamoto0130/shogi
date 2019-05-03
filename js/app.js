@@ -95,6 +95,9 @@ $(document).on("click", "#table td", function() {
             komaData2[1],
             frameEnemy.exist
           );
+          checkWinner1();
+          checkWinner2();
+
           flag = 0;
         } else {
           console.log("lost :" + lost);
@@ -117,7 +120,8 @@ $(document).on("click", "#table td", function() {
             deleteFrame(frameEnemy.x, frameEnemy.y);
             frameEnemy.x = frameFriend.x;
             frameEnemy.y = frameFriend.y;
-
+            checkWinner1();
+            checkWinner2();
             flag = 0;
             //user1の負け
           } else if (lost == 2) {
@@ -138,7 +142,8 @@ $(document).on("click", "#table td", function() {
             deleteFrame(frameFriend.x, frameFriend.y);
             frameFriend.x = frameEnemy.x;
             frameFriend.y = frameEnemy.y;
-
+            checkWinner1();
+            checkWinner2();
             flag = 0;
           }
         }
@@ -210,6 +215,8 @@ $(document).on("click", "#table td", function() {
             komaData2[1],
             frameEnemy.exist
           );
+          checkWinner1();
+          checkWinner2();
           flag = 0;
           //決着
         } else {
@@ -237,6 +244,8 @@ $(document).on("click", "#table td", function() {
             deleteFrame(frameEnemy.x, frameEnemy.y);
             frameEnemy.x = frameFriend.x;
             frameEnemy.y = frameFriend.y;
+            checkWinner1();
+            checkWinner2();
 
             // user1が勝ち
             flag = 0;
@@ -259,6 +268,8 @@ $(document).on("click", "#table td", function() {
             deleteFrame(frameFriend.x, frameFriend.y);
             frameFriend.x = frameEnemy.x;
             frameFriend.y = frameEnemy.y;
+            checkWinner1();
+            checkWinner2();
 
             flag = 0;
           }
@@ -426,13 +437,13 @@ function upDate2(x, y, hand, komaData, exist) {
     $(`#cell${x}${y}`).html(`<span id="user_100"></span>`);
   } else if (exist == 2) {
     if (hand == 1) {
-      $(`#cell${x}${y}`).html(`<span id="user1_${komaData}">グー</span>`);
+      $(`#cell${x}${y}`).html(`<span id="user2_${komaData}">グー</span>`);
       $(`#cell${x}${y}`).css("color", "red");
     } else if (hand == 2) {
-      $(`#cell${x}${y}`).html(`<span id="user1_${komaData}">チョキ</span>`);
+      $(`#cell${x}${y}`).html(`<span id="user2_${komaData}">チョキ</span>`);
       $(`#cell${x}${y}`).css("color", "red");
     } else if (hand == 3) {
-      $(`#cell${x}${y}`).html(`<span id="user1_${komaData}">パー</span>`);
+      $(`#cell${x}${y}`).html(`<span id="user2_${komaData}">パー</span>`);
       $(`#cell${x}${y}`).css("color", "red");
     }
   }
@@ -717,4 +728,29 @@ function makeArray1() {
 function makeArray2() {
   handArrayConvoy2 = [1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3];
   return handArrayConvoy2;
+}
+
+// 勝敗チェックuser1
+function checkWinner1() {
+  let winnerJudge = 0;
+  for (let i = 0; i < 18; i++) {
+    if (user1[i].exist == 2) {
+      winnerJudge = 1;
+    }
+  }
+  if (winnerJudge == 0) {
+    alert("勝者はuser2です！！");
+  }
+}
+// 勝敗チェックuser2
+function checkWinner2() {
+  let winnerJudge = 0;
+  for (let i = 0; i < 18; i++) {
+    if (user2[i].exist == 2) {
+      winnerJudge = 1;
+    }
+  }
+  if (winnerJudge == 0) {
+    alert("勝者はuser1です！！");
+  }
 }

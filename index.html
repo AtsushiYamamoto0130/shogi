@@ -115,8 +115,24 @@
     </table>
 
     <!-- jquery cdn 必ずjqueryが先 -->
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script> -->
     <!-- script.js-jsライブラリー -->
     <script src="js/app.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/5.11.1/firebase.js"></script>
+    <script>
+      // Initialize Firebase
+      var config = {
+        apiKey: "AIzaSyBv3vXLivIvLrHwNbe9JrlguseaY0b49xI",
+        authDomain: "shogi-12066.firebaseapp.com",
+        databaseURL: "https://shogi-12066.firebaseio.com",
+        projectId: "shogi-12066",
+        storageBucket: "shogi-12066.appspot.com",
+        messagingSenderId: "673567986524"
+      };
+      firebase.initializeApp(config);
+      var newPostRef = firebase.database().ref();
+    </script>
   </body>
 </html>
