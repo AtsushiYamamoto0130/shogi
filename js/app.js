@@ -409,7 +409,7 @@ function createUser2() {
       x: 4,
       y: 0,
       hand: (hand = handArrayShuffled2[4]),
-      exist: 0
+      exist: 2
     },
     {
       x: 5,
@@ -578,7 +578,7 @@ function createUser1() {
       x: 4,
       y: 8,
       hand: (hand = handArrayShuffled1[13]),
-      exist: 0
+      exist: 2
     },
     {
       x: 5,
