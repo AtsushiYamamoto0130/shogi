@@ -115,6 +115,9 @@ $(document).on("click", "#table td", function() {
               frameEnemy.exist
             );
             deleteFrame(frameEnemy.x, frameEnemy.y);
+            frameEnemy.x = frameFriend.x;
+            frameEnemy.y = frameFriend.y;
+
             flag = 0;
             //user1の負け
           } else if (lost == 2) {
@@ -133,6 +136,9 @@ $(document).on("click", "#table td", function() {
               frameFriend.exist
             );
             deleteFrame(frameFriend.x, frameFriend.y);
+            frameFriend.x = frameEnemy.x;
+            frameFriend.y = frameEnemy.y;
+
             flag = 0;
           }
         }
