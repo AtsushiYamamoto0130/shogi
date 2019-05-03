@@ -377,6 +377,7 @@ function deleteFrame(tempx, tempy) {
   $(`#cell${tempx}${tempy}`).html(`<span id="user_100"></span>`);
 }
 
+// いっっっっk
 // user2を作る
 function createUser2() {
   let userArray2 = [
