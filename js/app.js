@@ -2,7 +2,6 @@ let user = new Array();
 let user1 = new Array();
 let user2 = new Array();
 let frameFriend = 0;
-let cellPlace = 0;
 let flag = 0;
 let komaData;
 let firstClickArray;
@@ -10,6 +9,7 @@ let handArrayConvoy1 = new Array();
 let handArrayConvoy2 = new Array();
 let handArrayShuffled1 = new Array();
 let handArrayShuffled2 = new Array();
+let cellPlace1 = 0;
 
 window.onload = function() {
   handArrayConvoy1 = makeArray1();
@@ -30,6 +30,7 @@ $(document).on("click", "#table td", function() {
       .attr("id")
       .split("_");
     firstClickArray = eval("(" + komaData[0] + ")");
+    cellPlace1 = $(this).attr("id");
     let second = komaData[1];
     if (firstClickArray == user2) {
       flag = 2;
@@ -48,6 +49,9 @@ $(document).on("click", "#table td", function() {
     let komaPlace = $(this)
       .attr("id")
       .slice(4);
+    cellPlace1 = eval("(" + cellPlace1 + ")");
+    console.log("cellPlace1aaaaa :" + cellPlace1);
+    $("#cellPlace1").css("background-color", "green");
     let place = komaPlace.split("");
     let x = place[0];
     let y = place[1];
