@@ -1,3 +1,17 @@
+/**
+ * 全体的にコードが読みやすかった。
+ * 
+ * 基本的なコーディング問題
+ * 1. 似た処理は書かない。
+ * 
+ * 2. if文とswwitch文を使い分けた方がいい。
+ * 特に、switch文は分岐を明示的に書けるので可読性の向上が期待できる
+ * 使い分け方は、2分岐の場合はif...else,
+ * 多分岐の場合はswitch文を使う。
+ * 
+ * あと場合にも依るだろうけど、if文とswitch文ではswitch文の方が処理速度が速い
+ */
+
 let user = new Array();
 let user1 = new Array();
 let user2 = new Array();
@@ -5,22 +19,20 @@ let frameFriend = 0;
 let flag = 0;
 let komaData;
 let firstClickArray;
-let handArrayConvoy1 = new Array();
-let handArrayConvoy2 = new Array();
+let handArrayConvoy1 = [1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3];
+let handArrayConvoy2 = handArrayConvoy1;
 let handArrayShuffled1 = new Array();
 let handArrayShuffled2 = new Array();
 let cellPlace1 = 0;
 
 window.onload = function() {
-    handArrayConvoy1 = makeArray1();
-    handArrayConvoy2 = makeArray2();
-    handArrayShuffled1 = shuffledArray1(handArrayConvoy1);
-    handArrayShuffled2 = shuffledArray2(handArrayConvoy2);
+    handArrayShuffled1 = shuffledArray(handArrayConvoy1);
+    handArrayShuffled2 = shuffledArray(handArrayConvoy2);
 
     //  関数に駒生成範囲を渡してあげる。
     //  生成範囲を変更しやすいほか、user1とuser2で同じ関数が使えるようになる。
-    user1 = createUser(6, 9);
-    user2 = createUser(0, 9);
+    user1 = createUser(6, 9, handArrayShuffled1);
+    user2 = createUser(0, 9, handArrayShuffled2);
 
     set1(user1, "", "");
     set2(user2, "", "");
@@ -199,7 +211,7 @@ $(document).on("click", "#table td", function() {
                 return false;
                 //2回目のクリックの場所に敵の駒がある場合
             } else if (afterClickArray == user2) {
-                alert("勝負します");
+                // alert("勝負します");
                 let lost = judgeMent(frameFriend, frameEnemy);
                 //引き分けた場合
                 console.log("frameFriend.exist" + frameFriend.exist);
@@ -286,70 +298,37 @@ $(document).on("click", "#table td", function() {
     }
 });
 
+// せっかく、exist, handにid値を振っているんだから
+// こんな時は連想配列を使ったら良いんじゃないか説 is ある
+const handTypeFriend = {
+    1: 'FriendGu.png',
+    2: 'FriendChoki.png',
+    3: 'FriendPa.png'
+};
+const existType = {
+    0: 'frame',
+    2: 'king',
+    3: 'knight'
+}
+const handTypeEnemy = {
+    1: 'EnemyGu.png',
+    2: 'EnemyChoki.png',
+    3: 'EnemyPa.png'
+};
+
 function set1(user1) {
     console.log("更新中");
     let user = user1;
 
     for (let i = 0; i < 18; i++) {
         let userObj = user[i];
-        if (userObj.exist == 0) {
-            if (userObj.hand == 1) {
-                // $(`#cell${user1Obj.x}${user1Obj.y}`).html("グー");
-                $(`#cell${userObj.x}${userObj.y}`).html(
-                    `<span id="user1_${i}"><img src="./img/frameFriendGu.png"/></span>`
-                );
-            } else if (userObj.hand == 2) {
-                // $(`#cell${user1Obj.x}${user1Obj.y}`).html("チョキ");
-                $(`#cell${userObj.x}${userObj.y}`).html(
-                    `<span id="user1_${i}"><img src="./img/frameFriendChoki.png"/></span>`
-                );
-            } else if (userObj.hand == 3) {
-                // $(`#cell${user1Obj.x}${user1Obj.y}`).html("パー");
-                $(`#cell${userObj.x}${userObj.y}`).html(
-                    `<span id="user1_${i}"><img src="./img/frameFriendPa.png"/></span>`
-                );
-            }
-        } else if (userObj.exist == 2) {
-            if (userObj.hand == 1) {
-                // $(`#cell${user1Obj.x}${user1Obj.y}`).html("グー");
-                $(`#cell${userObj.x}${userObj.y}`).html(
-                    `<span id="user1_${i}"><img src="./img/kingFriendGu.png"/></span>`
-                );
-                $(`#cell${userObj.x}${userObj.y}`).css("color", "red");
-            } else if (userObj.hand == 2) {
-                // $(`#cell${user1Obj.x}${user1Obj.y}`).html("チョキ");
-                $(`#cell${userObj.x}${userObj.y}`).html(
-                    `<span id="user1_${i}"><img src="./img/kingFriendChoki.png"/></span>`
-                );
-                $(`#cell${userObj.x}${userObj.y}`).css("color", "red");
-            } else if (userObj.hand == 3) {
-                // $(`#cell${user1Obj.x}${user1Obj.y}`).html("パー");
-                $(`#cell${userObj.x}${userObj.y}`).html(
-                    `<span id="user1_${i}"><img src="./img/kingFriendPa.png"/></span>`
-                );
-                $(`#cell${userObj.x}${userObj.y}`).css("color", "red");
-            }
-        } else if (userObj.exist == 3) {
-            if (userObj.hand == 1) {
-                // $(`#cell${user1Obj.x}${user1Obj.y}`).html("グー");
-                $(`#cell${userObj.x}${userObj.y}`).html(
-                    `<span id="user1_${i}"><img src="./img/knightFriendGu.png"/></span>`
-                );
-                $(`#cell${userObj.x}${userObj.y}`).css("color", "red");
-            } else if (userObj.hand == 2) {
-                // $(`#cell${user1Obj.x}${user1Obj.y}`).html("チョキ");
-                $(`#cell${userObj.x}${userObj.y}`).html(
-                    `<span id="user1_${i}"><img src="./img/knightFriendChoki.png"/></span>`
-                );
-                $(`#cell${userObj.x}${userObj.y}`).css("color", "red");
-            } else if (userObj.hand == 3) {
-                // $(`#cell${user1Obj.x}${user1Obj.y}`).html("パー");
-                $(`#cell${userObj.x}${userObj.y}`).html(
-                    `<span id="user1_${i}"><img src="./img/knightFriendPa.png"/></span>`
-                );
-                $(`#cell${userObj.x}${userObj.y}`).css("color", "red");
-            }
-        }
+        console.log('user1 : ', userObj);
+        handTypeNum = userObj.hand;
+        existTypeNum = userObj.exist;
+        $(`#cell${userObj.x}${userObj.y}`).html(
+            `<span id="user1_${i}"><img src="./img/${existType[existTypeNum]}${handTypeFriend[handTypeNum]}"/></span>`
+        );
+        if (existTypeNum === 1 || existTypeNum === 2) $(`#cell${userObj.x}${userObj.y}`).css("color", "red");
     }
 }
 
@@ -359,64 +338,13 @@ function set2(user2) {
 
     for (let i = 0; i < 18; i++) {
         let userObj = user[i];
-        if (userObj.exist == 0) {
-            if (userObj.hand == 1) {
-                // $(`#cell${user1Obj.x}${user1Obj.y}`).html("グー");
-                $(`#cell${userObj.x}${userObj.y}`).html(
-                    `<span id="user2_${i}"><img src="./img/frameEnemyGu.png"/></span>`
-                );
-            } else if (userObj.hand == 2) {
-                // $(`#cell${user1Obj.x}${user1Obj.y}`).html("チョキ");
-                $(`#cell${userObj.x}${userObj.y}`).html(
-                    `<span id="user2_${i}"><img src="./img/frameEnemyChoki.png"/></span>`
-                );
-            } else if (userObj.hand == 3) {
-                // $(`#cell${user1Obj.x}${user1Obj.y}`).html("パー");
-                $(`#cell${userObj.x}${userObj.y}`).html(
-                    `<span id="user2_${i}"><img src="./img/frameEnemyPa.png"/></span>`
-                );
-            }
-        } else if (userObj.exist == 2) {
-            if (userObj.hand == 1) {
-                // $(`#cell${user1Obj.x}${user1Obj.y}`).html("グー");
-                $(`#cell${userObj.x}${userObj.y}`).html(
-                    `<span id="user2_${i}"><img src="./img/kingEnemyGu.png"/></span>`
-                );
-                $(`#cell${userObj.x}${userObj.y}`).css("color", "red");
-            } else if (userObj.hand == 2) {
-                // $(`#cell${user1Obj.x}${user1Obj.y}`).html("チョキ");
-                $(`#cell${userObj.x}${userObj.y}`).html(
-                    `<span id="user2_${i}"><img src="./img/kingEnemyChoki.png"/></span>`
-                );
-                $(`#cell${userObj.x}${userObj.y}`).css("color", "red");
-            } else if (userObj.hand == 3) {
-                // $(`#cell${user1Obj.x}${user1Obj.y}`).html("パー");
-                $(`#cell${userObj.x}${userObj.y}`).html(
-                    `<span id="user2_${i}"><img src="./img/kingEnemyPa.png"/></span>`
-                );
-                $(`#cell${userObj.x}${userObj.y}`).css("color", "red");
-            }
-        } else if (userObj.exist == 3) {
-            if (userObj.hand == 1) {
-                // $(`#cell${user1Obj.x}${user1Obj.y}`).html("グー");
-                $(`#cell${userObj.x}${userObj.y}`).html(
-                    `<span id="user2_${i}"><img src="./img/knightEnemyGu.png"/></span>`
-                );
-                $(`#cell${userObj.x}${userObj.y}`).css("color", "red");
-            } else if (userObj.hand == 2) {
-                // $(`#cell${user1Obj.x}${user1Obj.y}`).html("チョキ");
-                $(`#cell${userObj.x}${userObj.y}`).html(
-                    `<span id="user2_${i}"><img src="./img/knightEnemyChoki.png"/></span>`
-                );
-                $(`#cell${userObj.x}${userObj.y}`).css("color", "red");
-            } else if (userObj.hand == 3) {
-                // $(`#cell${user1Obj.x}${user1Obj.y}`).html("パー");
-                $(`#cell${userObj.x}${userObj.y}`).html(
-                    `<span id="user2_${i}"><img src="./img/knightEnemyPa.png"/></span>`
-                );
-                $(`#cell${userObj.x}${userObj.y}`).css("color", "red");
-            }
-        }
+        console.log('user2 : ', userObj);
+        handTypeNum = userObj.hand;
+        existTypeNum = userObj.exist;
+        $(`#cell${userObj.x}${userObj.y}`).html(
+            `<span id="user1_${i}"><img src="./img/${existType[existTypeNum]}${handTypeEnemy[handTypeNum]}"/></span>`
+        );
+        if (existTypeNum === 1 || existTypeNum === 2) $(`#cell${userObj.x}${userObj.y}`).css("color", "red");
     }
 }
 
@@ -447,118 +375,21 @@ function upDate1(x, y, hand, komaData, exist) {
     console.log("y :" + y);
     console.log("komaData :" + komaData);
     console.log("exist :" + exist);
-    if (exist == 0) {
-        if (hand == 1) {
-            $(`#cell${x}${y}`).html(
-                `<span id="user1_${komaData}"><img src="./img/frameFriendGu.png"/></span>`
-            );
-        } else if (hand == 2) {
-            $(`#cell${x}${y}`).html(
-                `<span id="user1_${komaData}"><img src="./img/frameFriendChoki.png"/></span>`
-            );
-        } else if (hand == 3) {
-            $(`#cell${x}${y}`).html(
-                `<span id="user1_${komaData}"><img src="./img/frameFriendPa.png"/></span>`
-            );
-        }
-    } else if (exist == 1) {
-        $(`#cell${x}${y}`).html(`<span id="user_100"></span>`);
-    } else if (exist == 2) {
-        if (hand == 1) {
-            $(`#cell${x}${y}`).html(
-                `<span id="user1_${komaData}"><img src="./img/kingFriendGu.png"/></span>`
-            );
-            $(`#cell${x}${y}`).css("color", "red");
-        } else if (hand == 2) {
-            $(`#cell${x}${y}`).html(
-                `<span id="user1_${komaData}"><img src="./img/kingFriendChoki.png"/></span>`
-            );
-            $(`#cell${x}${y}`).css("color", "red");
-        } else if (hand == 3) {
-            $(`#cell${x}${y}`).html(
-                `<span id="user1_${komaData}"><img src="./img/kingFriendPa.png"/></span>`
-            );
-            $(`#cell${x}${y}`).css("color", "red");
-        }
-    } else if (exist == 3) {
-        if (hand == 1) {
-            $(`#cell${x}${y}`).html(
-                `<span id="user1_${komaData}"><img src="./img/knightFriendGu.png"/></span>`
-            );
-            $(`#cell${x}${y}`).css("color", "red");
-        } else if (hand == 2) {
-            $(`#cell${x}${y}`).html(
-                `<span id="user1_${komaData}"><img src="./img/knightFriendChoki.png"/></span>`
-            );
-            $(`#cell${x}${y}`).css("color", "red");
-        } else if (hand == 3) {
-            $(`#cell${x}${y}`).html(
-                `<span id="user1_${komaData}"><img src="./img/knightFriendPa.png"/></span>`
-            );
-            $(`#cell${x}${y}`).css("color", "red");
-        }
-    }
+    if (exist == 0 || exist == 2 || exist == 3) {
+        $(`#cell${x}${y}`).html(
+            `<span id="user1_${komaData}"><img src="./img/${existType[exist]}${handTypeFriend[hand]}"/></span>`
+        );
+
+    } else if (exist == 1) $(`#cell${x}${y}`).html(`<span id="user_100"></span>`);
 }
 
 function upDate2(x, y, hand, komaData, exist) {
-    if (exist == 0) {
-        switch (hand) {
-            case 1:
-                $(`#cell${x}${y}`).html(
-                    `<span id="user2_${komaData}"><img src="./img/frameEnemyGu.png"/></span>`
-                );
-                break;
-            case 2:
-                $(`#cell${x}${y}`).html(
-                    `<span id="user2_${komaData}"><img src="./img/frameEnemyChoki.png"/></span>`
-                );
-                break;
-            case 3:
-                $(`#cell${x}${y}`).html(
-                    `<span id="user2_${komaData}"><img src="./img/frameEnemyPa.png"/></span>`
-                );
-                break;
+    if (exist == 0 || exist == 2 || exist == 3) {
+        $(`#cell${x}${y}`).html(
+            `<span id="user2_${komaData}"><img src="./img/${existType[exist]}${handTypeEnemy[hand]}"/></span>`
+        );
 
-            default:
-                break;
-        }
-    } else if (exist == 1) {
-        $(`#cell${x}${y}`).html(`<span id="user_100"></span>`);
-    } else if (exist == 2) {
-        if (hand == 1) {
-            $(`#cell${x}${y}`).html(
-                `<span id="user2_${komaData}"><img src="./img/kingEnemyGu.png"/></span>`
-            );
-            $(`#cell${x}${y}`).css("color", "red");
-        } else if (hand == 2) {
-            $(`#cell${x}${y}`).html(
-                `<span id="user2_${komaData}"><img src="./img/kingEnemyChoki.png"/></span>`
-            );
-            $(`#cell${x}${y}`).css("color", "red");
-        } else if (hand == 3) {
-            $(`#cell${x}${y}`).html(
-                `<span id="user2_${komaData}"><img src="./img/kingEnemyPa.png"/></span>`
-            );
-            $(`#cell${x}${y}`).css("color", "red");
-        }
-    } else if (exist == 3) {
-        if (hand == 1) {
-            $(`#cell${x}${y}`).html(
-                `<span id="user2_${komaData}"><img src="./img/knightEnemyGu.png"/></span>`
-            );
-            $(`#cell${x}${y}`).css("color", "red");
-        } else if (hand == 2) {
-            $(`#cell${x}${y}`).html(
-                `<span id="user2_${komaData}"><img src="./img/knightEnemyChoki.png"/></span>`
-            );
-            $(`#cell${x}${y}`).css("color", "red");
-        } else if (hand == 3) {
-            $(`#cell${x}${y}`).html(
-                `<span id="user2_${komaData}"><img src="./img/knightEnemyPa.png"/></span>`
-            );
-            $(`#cell${x}${y}`).css("color", "red");
-        }
-    }
+    } else if (exist == 1) $(`#cell${x}${y}`).html(`<span id="user_100"></span>`);
 }
 
 function deleteFrame(tempx, tempy) {
@@ -567,18 +398,18 @@ function deleteFrame(tempx, tempy) {
 }
 
 // ユーザーの駒生成関数
-function createUser(geneArea, pieceLength) {
+function createUser(geneArea, komaLength, handArray) {
     let userArray = new Array();
     let existNumber = 0;
     for (let i = geneArea; i <= geneArea + 2; i = i + 2) {
-        for (let j = 0; j < pieceLength; j++) {
+        for (let j = 0; j < komaLength; j++) {
             existNumber = 0;
             if ((i === 0 || i === 8) && j === 4) existNumber = 2; // 王様の駒
             if ((i === 0 || i === 8) && (j === 7 || j === 1)) existNumber = 3; // 飛車角の駒
             userArray.push({
                 x: j,
                 y: i,
-                hand: (handArrayShuffled1[i]), // hand = にする必要ない
+                hand: handArray[j], // hand = にする必要ない
                 exist: existNumber
             })
         }
@@ -599,39 +430,18 @@ function seeHand(hand) {
     return jankenHand;
 }
 
-function shuffledArray1(convoy) {
-    var team1 = convoy;
-    for (i = team1.length - 1; i > 0; i--) {
+function shuffledArray(convoy) {
+    var team = convoy;
+    for (i = team.length - 1; i > 0; i--) {
         var j = Math.floor(Math.random() * (i + 1));
-        var tmp = team1[i];
-        team1[i] = team1[j];
-        team1[j] = tmp;
+        var tmp = team[i];
+        team[i] = team[j];
+        team[j] = tmp;
     }
-    console.log("team1.length" + team1.length);
-    return team1;
+    console.log("team.length" + team);
+    return team;
 }
 
-function shuffledArray2(convoy) {
-    var team2 = convoy;
-    for (k = team2.length - 1; k > 0; k--) {
-        var l = Math.floor(Math.random() * (k + 1));
-        var tmp = team2[k];
-        team2[k] = team2[l];
-        team2[l] = tmp;
-    }
-    console.log("team2.length" + team2.length);
-    return team2;
-}
-
-function makeArray1() {
-    handArrayConvoy1 = [1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3];
-    return handArrayConvoy1;
-}
-
-function makeArray2() {
-    handArrayConvoy2 = [1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3];
-    return handArrayConvoy2;
-}
 
 // 勝敗チェックuser1
 function checkWinner1() {
