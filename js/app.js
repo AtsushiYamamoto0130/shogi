@@ -19,9 +19,8 @@ window.onload = function() {
 
     //  関数に駒生成範囲を渡してあげる。
     //  生成範囲を変更しやすいほか、user1とuser2で同じ関数が使えるようになる。
-
-    user1 = createUser1(6, 9);
-    user2 = createUser2(0, 9);
+    user1 = createUser(6, 9);
+    user2 = createUser(0, 9);
 
     set1(user1, "", "");
     set2(user2, "", "");
@@ -503,18 +502,25 @@ function upDate1(x, y, hand, komaData, exist) {
 
 function upDate2(x, y, hand, komaData, exist) {
     if (exist == 0) {
-        if (hand == 1) {
-            $(`#cell${x}${y}`).html(
-                `<span id="user2_${komaData}"><img src="./img/frameEnemyGu.png"/></span>`
-            );
-        } else if (hand == 2) {
-            $(`#cell${x}${y}`).html(
-                `<span id="user2_${komaData}"><img src="./img/frameEnemyChoki.png"/></span>`
-            );
-        } else if (hand == 3) {
-            $(`#cell${x}${y}`).html(
-                `<span id="user2_${komaData}"><img src="./img/frameEnemyPa.png"/></span>`
-            );
+        switch (hand) {
+            case 1:
+                $(`#cell${x}${y}`).html(
+                    `<span id="user2_${komaData}"><img src="./img/frameEnemyGu.png"/></span>`
+                );
+                break;
+            case 2:
+                $(`#cell${x}${y}`).html(
+                    `<span id="user2_${komaData}"><img src="./img/frameEnemyChoki.png"/></span>`
+                );
+                break;
+            case 3:
+                $(`#cell${x}${y}`).html(
+                    `<span id="user2_${komaData}"><img src="./img/frameEnemyPa.png"/></span>`
+                );
+                break;
+
+            default:
+                break;
         }
     } else if (exist == 1) {
         $(`#cell${x}${y}`).html(`<span id="user_100"></span>`);
@@ -560,17 +566,20 @@ function deleteFrame(tempx, tempy) {
     $(`#cell${tempx}${tempy}`).html(`<span id="user_100"></span>`);
 }
 
-
-// user1を作る
-function createUser1(geneArea, pieceLength) {
+// ユーザーの駒生成関数
+function createUser(geneArea, pieceLength) {
     let userArray = new Array();
-    for (let i = 0; i < geneArea; i = i + 2) {
+    let existNumber = 0;
+    for (let i = geneArea; i <= geneArea + 2; i = i + 2) {
         for (let j = 0; j < pieceLength; j++) {
+            existNumber = 0;
+            if ((i === 0 || i === 8) && j === 4) existNumber = 2; // 王様の駒
+            if ((i === 0 || i === 8) && (j === 7 || j === 1)) existNumber = 3; // 飛車角の駒
             userArray.push({
-                x: i,
-                y: j,
-                hand: (hand = handArrayShuffled1[i]),
-                exist: 0
+                x: j,
+                y: i,
+                hand: (handArrayShuffled1[i]), // hand = にする必要ない
+                exist: existNumber
             })
         }
     }
